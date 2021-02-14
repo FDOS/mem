@@ -3,21 +3,21 @@
 # Last update: 21 Dec 2020
 #
 # fatal errors
-0.0:Muisti loppu. Tarvitaan %ld tavua lis„„.\n
-0.1:JŽRJESTELMŽN MUISTIVIRHE! (int 21.5803 ep„onnistui)\n
+0.0:Muisti lopussa. %ld tavua lis„„ vaaditaan.\n
+0.1:JŽRJESTELMŽN MUISTIALUEEN VIKA! (int 21.5803 ep„onnistui)\n
 0.2:Yl„muistivirhe: ketju ei yll„ alamuistin yl„osaan, osoite %dk. Viim=0x%x.\n
-0.3:Muistiohjauslohko vaurioitunut (Z MCB viimeisen M MCB j„lkeen puuttuu, mutta %c seg 0x%x).\n
+0.3:Muistiohjauslohkoketju vaurioitunut (Z MCB viimeisen M MCB:n j„lkeen puuttuu, mutta %c, seg=0x%x).\n
 0.4:/? n„ytt„„ ohjeen\n
 0.5:tuntematon valitsin: %s\n%s
 0.6:/NOSUMMARY-valitsinta k„ytettiin, mutta muita tulostevalitsimia ei annettu,\njoten mit„„n ei tulosteta.\n%s
-0.7:Fatal error: failed to free HMA, error code %02Xh\n
+0.7:Virhe: HMA:n vapautus ep„onnistui, virhekoodi %02Xh\n
 0.8:tuntematon valitsin (odotettiin '/'): %s\n%s
-0.9:Arvo vaaditaan valitsimen /%s j„lkeen, ei toinen valitsin\n%s
+0.9:Arvo vaaditaan valitsimen /%s j„lkeen, l”ytyi toinen valitsin\n%s
 0.10:Sis„inen virhe: valitsimella '%s' on etuliitteen„ '%s'\nsek„ toinen samanpituinen etuliite
-0.11:Sis„inen virhe: valitsin '%s' t„sm„„ tasan kahteen\neri asetukseen\n
+0.11:Sis„inen virhe: valitsin '%s' t„sm„„ kahteen\neri asetukseen\n
 0.12:Virhe: valitsin '%s' on monimerkityksinen - t„sm„„ osittain\nkahteen tai useampaan asetukseen\n%s
 0.13:Arvo vaaditaan valitsimen /%s j„lkeen\n%s
-0.14:Virheellinen valitsin '%s': v„hint„„n yksi kirjain asetuksen\nnimest„ tulee antaa
+0.14:Virheellinen valitsin '%s': v„hint„„n yksi kirjain valitsimen\nnimest„ tulee antaa
 # misc messages
 1.0:Tuntematon k„ytt”j„rjestelm„
 1.1:%s tavua\n
@@ -25,29 +25,29 @@
 1.3: (%7s tavua)\n
 1.4:Varoitus: laite n„ytt„„ olevan usean eri muistilohkon omistuksessa (%s\nja %s)\n
 1.5:(ei .drv)
-1.6:%smuistia ei vapaana\n
+1.6:%sa ei yht„„n vapaana\n
 1.7:%s ei ole t„ll„ hetkell„ muistissa.\n
 1.8:%s k„ytt„„ seuraavaa muistia:\n
-1.9:%smuistia ei saatavilla\n
+1.9:%sa ei saatavilla\n
 # memory types
 2.0:Muistityyppi      Yhteens„   K„yt”ss„   Vapaana\n
 #   ----------------  --------   --------   --------
 2.1:Perusmuisti
 2.2:Yl„muisti
 2.3:Varattu
-2.4:Jatkomuisti(XMS)
+2.4:Jatkomuisti/XMS
 2.5:Muistia yhteens„
 2.6:1 Mt:n alla
 2.7:Laajennettu (EMS) muisti yhteens„
 2.8:Vapaata laajennettua muistia
 2.9:Suurin suoritettavan ohjelman koko
 2.10:Suurin vapaa ylimuistilohko
-2.11:%s on muistinvarainen korkeamuistialueella.\n
+2.11:%s on muistinvarainen korkeamuistialueella (HMA).\n
 2.12:Tila korkeamuistialueella (HMA)
 2.13:HMA saatavilla jatkomuistiajurilta\n
-2.14:HMA ei saatavilla jatkomuistiajurilta: ei toteutettu\n
-2.15:HMA ei saatavilla jatkomuistiajurilta: VDISK-laitteen vaatima\n
-2.16:HMA ei saatavilla jatkomuistiajurilta: HMA ei ole olemassa\n
+2.14:HMA ei saatavilla jatkomuistiajurilta: ajuri ei tue\n
+2.15:HMA ei saatavilla jatkomuistiajurilta: VDISK-laitteen varaama\n
+2.16:HMA ei saatavilla jatkomuistiajurilta: HMA:ta ei ole olemassa\n
 2.17:HMA ei saatavilla jatkomuistiajurilta: HMA jo k„yt”ss„\n
 2.18:HMA ei saatavilla jatkomuistiajurilta: HMAMIN suurempi kuin HMA\n
 2.19:HMA saatavilla jatkomuistiajurilta, TSR-v„himm„iskoko (HMAMIN): %u tavua\n
@@ -59,14 +59,14 @@
 3.0:
 3.1:vapaa
 3.2:j„rjestelm„koodi
-3.3:j„rjestelm„tieto
+3.3:j„rjestelm„tiedot
 3.4:ohjelma
 3.5:ymp„rist”
 3.6:tietoalue
 3.7:varattu
 3.8:keskeytysvektoritaulu
 3.9:BIOS-tietoalue
-3.10:j„rjestelm„tieto
+3.10:j„rjestelm„tiedot
 3.11:laiteajuri
 3.12:tietoalue
 3.13:tiedostoj„rjestelm„
@@ -75,8 +75,8 @@
 4.0:\n1 Mt:n alista muistia k„ytt„v„t moduulit:\n\n
 4.1:  Nimi          Yhteens„         Perusmuisti         Yl„muisti\n
 #     --------  ----------------   ----------------   ----------------
-4.2:J„rj.
-4.3:Vapaa
+4.2:(J„rj.)
+4.3:(Vapaa)
 4.4:\n Lohko       Yhteens„          Nimi         Tyyppi\n
 #     -------  ----------------  ------------  -------------
 4.5:\n   Osoite      M„„r.   Nimi       Ohjelma\n
@@ -86,9 +86,9 @@
 #            ----------------
 4.7:Yhteens„:
 4.8:j„rjestelm„n laiteajuri\n
-4.9:Asennettu DEVICE=%s\n
-4.10:%smuistin tiedot:\n
-4.11:Vapaa %smuisti:\n
+4.9:asennettu DEVICE=%s\n
+4.10:%sn tiedot:\n
+4.11:%sa vapaana:\n
 4.12: (%u t„ss„ lohkossa)
 
 # EMS stuff
@@ -105,7 +105,7 @@
 # XMS stuff
 6.0:Jatkomuistiajuria ei asennettu.\n
 6.1:\nTestataan jatkomuistia (XMS)...\n
-6.2:JATKOMUISTIN VIRHE.\n
+6.2:JATKOMUISTIN (XMS) VIRHE.\n
 6.3:INT 2F AX=4309 tuettu\n
 6.4:XMS-versio
 6.5:XMS-ajurin versio
